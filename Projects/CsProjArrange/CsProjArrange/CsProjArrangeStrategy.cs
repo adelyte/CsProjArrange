@@ -100,6 +100,13 @@ namespace CsProjArrange
             _attributeKeyComparer = CreateAttributeKeyComparer(_sortAttributes);
             _nodeNameComparer = new NodeNameComparer(_stickyElementNames);
 
+            var ds = input.Root.Descendants().Where(a => a.Name.LocalName == "ProjectExtensions");
+
+            foreach(var d in ds)
+            {
+                d.RemoveAll();
+            }
+
             input.Root.ReplaceNodes(
                 UnfoldSections(
                     FoldSections(input.Root.Nodes())
